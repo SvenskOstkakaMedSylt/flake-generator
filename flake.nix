@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     target.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
