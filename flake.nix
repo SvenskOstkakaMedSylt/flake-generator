@@ -1,15 +1,14 @@
 {
   inputs = {
-    target = {
-      type = "path";
-      path = ./target;
-    };
+    nixpkgs = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    target.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
   outputs = {
     nixpkgs,
     target,
-    self,
+    ...
   }: let
     inherit (nixpkgs) lib;
     systems = lib.systems.flakeExposed;
@@ -28,7 +27,7 @@
           inherit (flake) narHash;
         };
 
-        flake = flake._flake or "none" == "flake";
+        flake = flake._type or "none" == "flake"; # used to be _flake
       }
       // (
         if flake ? inputs
@@ -68,6 +67,7 @@
           {
             inputs = {
               target.url = "path:${target.outPath}";
+              # target.url = ${target.outPath};
             };
 
             outputs = {target, ...}: target.outputs;
