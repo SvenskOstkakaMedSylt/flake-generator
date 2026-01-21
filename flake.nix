@@ -39,7 +39,11 @@
 
     getInputs = flake:
       {${flake.narHash} = flake;}
-      // (lib.mergeAttrsList (map getInputs (builtins.attrValues flake.inputs)));
+      // (
+        if flake ? inputs
+        then lib.mergeAttrsList (map getInputs (builtins.attrValues flake.inputs))
+        else {}
+      );
 
     allInputs = getInputs target;
     allNodesExceptRoot = builtins.mapAttrs (_: generateNode) allInputs;
