@@ -23,7 +23,7 @@
         locked = {
           type = "path";
           path = flake.outPath;
-          lastModified = 0;
+          lastModified = 0; # seems to be 1 instead of 0
           inherit (flake) narHash;
         };
 
@@ -71,7 +71,6 @@
           {
             inputs = {
               target.url = "path:${target.outPath}";
-              # target.url = ${target.outPath};
             };
 
             outputs = {target, ...}: target.outputs;
